@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _prefab;
+    [SerializeField] private Enemy _enemy;
     [SerializeField] private float _delay;
     [SerializeField] private Transform[] _spawnPoints;
 
@@ -11,15 +11,11 @@ public class EnemySpawner : MonoBehaviour
     
     private bool _isSpawning = true;
 
-    private void OnEnable()
-    {
-        StartCoroutine(SpawningEnemies());
-    }
+    private void OnEnable() =>    
+        StartCoroutine(SpawningEnemies());    
 
-    private void OnDisable()
-    {
-        StopCoroutine(SpawningEnemies());
-    }
+    private void OnDisable() =>    
+        StopCoroutine(SpawningEnemies());    
 
     private IEnumerator SpawningEnemies()
     {
@@ -29,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
         {
             Transform spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
 
-            GameObject enemy = Instantiate(_prefab, spawnPoint.position, Quaternion.identity);
+            GameObject enemy = Instantiate(_enemy.gameObject, spawnPoint.position, Quaternion.identity);
 
             _spawnDirection = spawnPoint.GetComponent<SpawnDirection>();
 
